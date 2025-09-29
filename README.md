@@ -4,7 +4,7 @@
 
 Stop playing the localhost lottery. This plugin automatically assigns memorable domains to each of your projects — derived from the folder name or package.json — so `localhost:5173`, `localhost:5174`, and `localhost:5175` become `frontend.local`, `admin.local`, and `api.local`.
 
-![Vite dev server with stable domain from vite-plugin-domain](./vite-start.png)
+![Vite dev server with stable domain from vite-plugin-domain](https://raw.githubusercontent.com/mustafa0x/vite-plugin-domain/main/vite-start.png)
 
 ## The problem
 
