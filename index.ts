@@ -419,7 +419,7 @@ export default function domain(user: Options = {}): Plugin {
         const httpsPort = pickHttpsPort(opt.listen)
         const url =
             httpsPort && httpsPort !== 443 ? `https://${domain}:${httpsPort}` : `https://${domain}`
-        console.log(`    ➜    ${pc.bold('Domain')}: ${pc.cyan(url)} ${pc.dim('(via caddy)')}`)
+        console.log(`  ➜  ${pc.bold('Domain')}: ${pc.cyan(url)} ${pc.dim('(via caddy)')}`)
     }
 
     function pickHttpsPort(listen: string[]): number | undefined {
