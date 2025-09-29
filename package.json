@@ -1,0 +1,62 @@
+{
+  "name": "vite-plugin-domain",
+  "version": "0.0.0",
+  "description": "Vite plugin that wires a local domain via Caddy for your dev server.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "packageManager": "pnpm@10.12.1",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "pnpm run build",
+    "prepare": "pnpm run build"
+  },
+  "keywords": [
+    "vite",
+    "vite-plugin",
+    "domain",
+    "caddy",
+    "local",
+    "https"
+  ],
+  "author": "",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=18"
+  },
+  "peerDependencies": {
+    "vite": ">=4"
+  },
+  "dependencies": {
+    "picocolors": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.7"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "tabWidth": 4,
+    "printWidth": 100,
+    "quoteProps": "as-needed",
+    "bracketSpacing": true,
+    "arrowParens": "avoid"
+  }
+}
