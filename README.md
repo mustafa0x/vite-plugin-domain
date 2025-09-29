@@ -4,6 +4,8 @@
 
 Stop playing the localhost lottery. This plugin automatically assigns memorable domains to each of your projects — derived from the folder name or package.json — so `localhost:5173`, `localhost:5174`, and `localhost:5175` become `frontend.local`, `admin.local`, and `api.local`.
 
+![Vite dev server with stable domain from vite-plugin-domain](./vite-start.png)
+
 ## The problem
 
 You're working on multiple Vite projects. Each one claims a random port. You have browser tabs open to:
