@@ -6,27 +6,9 @@ Stop playing the localhost lottery. This plugin automatically assigns memorable 
 
 ![Vite dev server with stable domain from vite-plugin-domain](https://raw.githubusercontent.com/mustafa0x/vite-plugin-domain/main/vite-start.png)
 
-## The problem
-
-You're working on multiple Vite projects. Each one claims a random port. You have browser tabs open to:
-- `localhost:5173` — wait, is this the admin panel or the customer app?
-- `localhost:5174` — definitely the API... or was it the docs site?
-- `localhost:3000` — something's running here but you forgot what
-
-Tomorrow when you restart everything, the ports shuffle around. The API that was on 5173 is now on 5175. Your bookmarks are useless. Your muscle memory is worthless.
-
-## The solution
-
-This tiny plugin wires each project to a stable local domain via [Caddy](https://caddyserver.com). Now you have:
-- `frontend.local` — always your frontend, no matter the port
-- `admin.local` — always your admin panel
-- `api.local` — always your API
-
-Start any project in any order. Restart them whenever. The domains stay the same.
-
 ## What it does
 The plugin automatically:
-- Configures a Caddy HTTP server with HTTPS via the internal issuer
+- Configures a Caddy reverse proxy with HTTPS (via the internal issuer)
 - Routes your domain to whatever port Vite picks
 - Generates domain names from your folder or package.json
 - Shares one Caddy instance across all your projects
