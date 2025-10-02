@@ -284,7 +284,7 @@ export default function domain(user: Options = {}): Plugin {
     async function addRoute(domain: string, port: number) {
         const route: CaddyRoute = {
             match: [{ host: [domain] }],
-            handle: [{ handler: 'reverse_proxy', upstreams: [{ dial: `127.0.0.1:${port}` }] }],
+            handle: [{ handler: 'reverse_proxy', upstreams: [{ dial: `localhost:${port}` }] }],
             terminal: true,
         }
         const base = `${opt.adminUrl}/config/apps/http/servers/${encodeURIComponent(opt.serverId)}/routes`
@@ -299,7 +299,7 @@ export default function domain(user: Options = {}): Plugin {
         const base = `${opt.adminUrl}/config/apps/http/servers/${encodeURIComponent(opt.serverId)}/routes/${index}`
         const updated: CaddyRoute = {
             match: [{ host: [domain] }],
-            handle: [{ handler: 'reverse_proxy', upstreams: [{ dial: `127.0.0.1:${port}` }] }],
+            handle: [{ handler: 'reverse_proxy', upstreams: [{ dial: `localhost:${port}` }] }],
             terminal: true,
         }
         await put(base, updated)
