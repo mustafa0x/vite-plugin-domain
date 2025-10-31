@@ -32,9 +32,21 @@ pnpm add -D vite-plugin-domain
    ```
    The admin API runs on `http://127.0.0.1:2019` by default. The plugin uses this API to configure domains dynamically.
 
-## Configuration
+## Quick start
 
 Add the plugin to your `vite.config.ts`:
+
+```ts
+import domain from 'vite-plugin-domain'
+
+export default defineConfig({
+  plugins: [
+    domain()
+  ]
+})
+```
+
+## Configuration
 
 ```ts
 import { defineConfig } from 'vite'
