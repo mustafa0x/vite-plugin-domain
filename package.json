@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-domain",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Vite plugin that wires a local domain via Caddy for your dev server.",
   "type": "module",
   "exports": {
