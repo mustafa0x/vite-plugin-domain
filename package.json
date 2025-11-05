@@ -30,6 +30,14 @@
     "local",
     "https"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mustafa0x/vite-plugin-domain"
+  },
+  "bugs": {
+    "url": "https://github.com/mustafa0x/vite-plugin-domain/issues"
+  },
+  "homepage": "https://github.com/mustafa0x/vite-plugin-domain#readme",
   "author": "",
   "license": "MIT",
   "engines": {
