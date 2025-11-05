@@ -111,6 +111,8 @@ export default function domain(user: Options = {}): Plugin {
         }
     }
     function computeDomain(): string {
+        const env = process.env.VITE_PLUGIN_DOMAIN_VALUE?.trim().toLowerCase()
+        if (env) return env
         if (opt.domain) return opt.domain
         const base = opt.nameSource === 'pkg' ? slugFromPkg() : slugFromFolder()
         return `${base}.${opt.tld}`

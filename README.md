@@ -93,6 +93,7 @@ Override automatic naming by specifying an explicit domain:
 ```ts
 domain({ domain: 'my-custom-app.local' })
 ```
+Or set the `VITE_PLUGIN_DOMAIN_VALUE` env variable.
 
 ## Choosing a TLD: .local vs .localhost
 
