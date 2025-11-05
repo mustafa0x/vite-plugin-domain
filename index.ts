@@ -443,6 +443,39 @@ export default function domain(user: Options = {}): Plugin {
     return {
         name: 'vite-plugin-domain',
         apply: 'serve',
+        // Ensure Vite dev server accepts our domain's Host header
+        // without requiring users to edit their config manually.
+        config(config) {
+            try {
+                const domain = computeDomain()
+                const current = config.server?.allowedHosts
+                // If user already allows all hosts, don't change anything
+                if (current === true) return
+
+                // Build the next allowed hosts list, preserving existing entries
+                const list = Array.isArray(current) ? [...current] : []
+
+                // Helper to see if an entry (with optional leading '.') covers the domain
+                const covers = (entry: string, host: string) =>
+                    entry.startsWith('.') ? host === entry.slice(1) || host.endsWith(entry) : entry === host
+
+                if (!list.some(e => covers(e, domain))) {
+                    list.push(domain)
+                    if (opt.verbose) log(`Added ${domain} to Vite server.allowedHosts`)
+                }
+
+                return {
+                    server: {
+                        ...(config.server ?? {}),
+                        allowedHosts: list,
+                    },
+                }
+            } catch (e) {
+                // Non-fatal: if anything goes wrong, don't block Vite startup
+                warn('failed to set server.allowedHosts automatically:', (e as any)?.message || e)
+                return
+            }
+        },
         configureServer(server) {
             server.httpServer?.once('listening', () => {
                 wireDomain(server).catch(e => {
