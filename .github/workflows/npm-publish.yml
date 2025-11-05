@@ -16,25 +16,17 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: jdx/mise-action@v3
         with:
-          node-version: 'lts/*'
-          registry-url: 'https://registry.npmjs.org'
+          mise_toml: |
+            [tools]
+            node = "lts"
+            pnpm = "10.12.1"
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.12.1
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build
-        run: pnpm -s build
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -s build
 
       - name: Determine dist-tag
         id: tag
@@ -54,4 +46,3 @@ jobs:
           NPM_CONFIG_PROVENANCE: 'true'
         run: |
           npm publish --access public --provenance --tag "${{ steps.tag.outputs.value }}"
-
