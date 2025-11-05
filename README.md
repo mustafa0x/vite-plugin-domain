@@ -11,6 +11,7 @@ The plugin automatically:
 - Configures a Caddy reverse proxy with HTTPS (via the internal issuer)
 - Routes your domain to whatever port Vite picks
 - Generates domain names from your folder or package.json
+- Adds the domain to Vite's `server.allowedHosts` during dev
 - Shares one Caddy instance across all your projects
 
 ## Installation
@@ -67,10 +68,6 @@ export default defineConfig({
       verbose: false,                      // Enable detailed logging
     })
   ],
-  server: {
-    // Required for .local domains:
-    allowedHosts: ['.local'],
-  }
 })
 ```
 
@@ -100,14 +97,9 @@ domain({ domain: 'my-custom-app.local' })
 ## Choosing a TLD: .local vs .localhost
 
 ### Using .local (recommended)
-Shorter and cleaner, but requires one-time setup:
+Shorter and cleaner, with a small one-time step:
 
-1. Add to Vite's allowed hosts:
-   ```ts
-   server: { allowedHosts: ['.local'] }
-   ```
-
-2. Add an entry to `/etc/hosts`:
+1. Add an entry to `/etc/hosts`:
    ```bash
    sudo bash -c "echo '127.0.0.1 myapp.local' >> /etc/hosts"
    ```
@@ -120,10 +112,7 @@ Works without additional setup in most browsers:
 domain({ tld: 'localhost' })
 ```
 
-Browsers typically resolve `*.localhost` to `127.0.0.1` automatically. If Vite blocks it, add to allowed hosts:
-```ts
-server: { allowedHosts: ['.localhost'] }
-```
+Browsers typically resolve `*.localhost` to `127.0.0.1` automatically.
 
 ## Advanced usage
 
@@ -178,7 +167,9 @@ domain({ verbose: true })
 - Or set `failOnActiveDomain: false` to override (use with caution)
 
 ### Vite shows "Invalid Host header"
-- Add your TLD to Vite's allowed hosts: `server: { allowedHosts: ['.local'] }`
+- The plugin normally adds your domain to `server.allowedHosts`.
+- If you still see this, make sure the plugin is loaded under `plugins` and `apply: 'serve'` isn’t overridden.
+- As a fallback, add your domain (or TLD) manually: `server: { allowedHosts: ['myapp.local'] }`
 
 ## License
 MIT
