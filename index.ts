@@ -399,11 +399,9 @@ export default function domain(user: Options = {}): Plugin {
                 `Domain '${domain}' is already mapped to active port ${existingPort}. ` +
                 `Refusing to overwrite. Stop that service or choose a different domain.`
             if (opt.failOnActiveDomain) {
+                // Fail the wiring for this domain but do not disrupt the Vite dev server.
+                // This keeps the dev process healthy while clearly reporting the issue.
                 err(msg)
-                try {
-                    await server.close()
-                } catch {}
-                process.exitCode = 1
                 return
             } else {
                 warn(msg)
