@@ -61,8 +61,8 @@ export default defineConfig({
       serverId: 'vite-dev',                // Caddy server identifier
       listen: [':443', ':80'],             // Ports Caddy should listen on
       nameSource: 'folder',                // Use folder name for domain ('folder' | 'pkg')
-      tld: 'local',                        // Top-level domain suffix
-      // domain: 'myapp.local',            // Explicit domain (overrides nameSource+tld)
+      tld: 'localhost',                    // Top-level domain suffix
+      // domain: 'myapp.localhost',        // Explicit domain (overrides nameSource+tld)
       failOnActiveDomain: true,            // Fail if domain already has an active route
       insertFirst: true,                   // Insert new route at top of route list
       verbose: false,                      // Enable detailed logging
@@ -91,22 +91,13 @@ The generated domain follows the pattern: `{name}.{tld}`
 ### Manual naming
 Override automatic naming by specifying an explicit domain:
 ```ts
-domain({ domain: 'my-custom-app.local' })
+domain({ domain: 'my-custom-app.localhost' })
 ```
 Or set the `VITE_PLUGIN_DOMAIN_VALUE` env variable.
 
-## Choosing a TLD: .local vs .localhost
+## Choosing a TLD: .localhost vs .local
 
-### Using .local (recommended)
-Shorter and cleaner, with a small one-time step:
-
-1. Add an entry to `/etc/hosts`:
-   ```bash
-   sudo bash -c "echo '127.0.0.1 myapp.local' >> /etc/hosts"
-   ```
-   Note: Some networks use `.local` for mDNS. The explicit hosts entry ensures local resolution.
-
-### Using .localhost
+### Using .localhost (default)
 Works without additional setup in most browsers:
 
 ```ts
@@ -115,23 +106,16 @@ domain({ tld: 'localhost' })
 
 Browsers typically resolve `*.localhost` to `127.0.0.1` automatically.
 
+### Using .local
+Shorter and cleaner, with a small one-time step:
+
+1. Add an entry to `/etc/hosts`:
+   ```bash
+   sudo bash -c "echo '127.0.0.1 myapp.local' >> /etc/hosts"
+   ```
+   Note: Some networks use `.local` for mDNS. The explicit hosts entry ensures local resolution.
+
 ## Advanced usage
-
-### Multiple projects
-Run several Vite projects simultaneously with different domains:
-
-```ts
-// Project A: vite.config.ts
-domain({ domain: 'frontend.local' })
-
-// Project B: vite.config.ts
-domain({ domain: 'admin.local' })
-
-// Project C: vite.config.ts
-domain({ domain: 'api.local' })
-```
-
-All three projects can run concurrently, each accessible via its own domain, all routing through the same Caddy instance.
 
 ### Custom Caddy server configuration
 If you need different Caddy server settings per project:
@@ -155,7 +139,7 @@ domain({ verbose: true })
 
 ### Browser shows "connection refused"
 - Ensure Caddy is running: `caddy run`
-- Check the domain resolves: `ping myapp.local`
+- Check the domain resolves: `ping myapp.localhost`
 - Verify `/etc/hosts` entry exists for `.local` domains
 
 ### Certificate warnings
@@ -170,7 +154,7 @@ domain({ verbose: true })
 ### Vite shows "Invalid Host header"
 - The plugin normally adds your domain to `server.allowedHosts`.
 - If you still see this, make sure the plugin is loaded under `plugins` and `apply: 'serve'` isn’t overridden.
-- As a fallback, add your domain (or TLD) manually: `server: { allowedHosts: ['myapp.local'] }`
+- As a fallback, add your domain (or TLD) manually: `server: { allowedHosts: ['myapp.localhost'] }`
 
 ## License
 MIT
