@@ -151,6 +151,28 @@ domain({ verbose: true })
 - Either stop the other project or use a different domain
 - Or set `failOnActiveDomain: false` to override (use with caution)
 
+### Unmapping / killing a stuck domain
+This package ships a small CLI to list and manage mapped domains:
+
+```bash
+pnpm exec vite-plugin-domain
+```
+
+You’ll get an autocomplete list of domains with their mapped ports. Pick one, then choose:
+- **Kill + unmap** (terminate the process on that port, then remove the route)
+- **Unmap only**
+
+Non-interactive flags:
+```bash
+pnpm exec vite-plugin-domain --unmap myapp.localhost
+pnpm exec vite-plugin-domain --kill myapp.localhost
+```
+
+Optional overrides:
+```bash
+pnpm exec vite-plugin-domain --admin-url http://127.0.0.1:2019 --server-id vite-dev
+```
+
 ### Vite shows "Invalid Host header"
 - The plugin normally adds your domain to `server.allowedHosts`.
 - If you still see this, make sure the plugin is loaded under `plugins` and `apply: 'serve'` isn’t overridden.

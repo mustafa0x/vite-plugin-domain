@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-domain",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Vite plugin that wires a local domain via Caddy for your dev server.",
   "type": "module",
   "exports": {
@@ -14,8 +14,12 @@
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "bin/domain-manage.js"
   ],
+  "bin": {
+    "vite-plugin-domain": "./bin/domain-manage.js"
+  },
   "packageManager": "pnpm@10.12.1",
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -47,6 +51,7 @@
     "vite": ">=4"
   },
   "dependencies": {
+    "@clack/prompts": "1.0.0-alpha.9",
     "picocolors": "^1.0.0"
   },
   "devDependencies": {
@@ -67,5 +72,10 @@
     "quoteProps": "as-needed",
     "bracketSpacing": true,
     "arrowParens": "avoid"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }
